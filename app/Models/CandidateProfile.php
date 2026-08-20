@@ -19,7 +19,7 @@ class CandidateProfile extends Model
         'linkedin_url',
         'portfolio_url',
         'is_public',
-        'profile_completion',
+        'profile_completion_rate',
     ];
 
     protected $casts = [
