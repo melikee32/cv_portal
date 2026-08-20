@@ -1,124 +1,77 @@
 <?php
 
-namespace App\Models;
+namespace  App\Models;
 
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use PHPUnit\TextUI\Application;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
+
     use HasFactory, Notifiable;
 
-    protected $fillable = [
+    // Kullanıcının hangi alanlarının User::create() ile doldurulabileceğini belirler.
+    protected $filliable = [
         'name',
         'email',
         'password',
         'role',
     ];
 
+    // Şifrenin response/JSON gibi çıktılarda görünmesini engeller.
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    protected function casts(): array
-    {
+    // Veritabanından gelen alanların uygun PHP tiplerine dönüştürülmesini sağlar.
+    protected function casts(): array{
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            //'password' => 'hashed', //Laravel'e verilen düz şifre otomatik olarak hashlenebilir ama controlerde yapacagız
         ];
     }
 
-    // // 👤 Aday profili
-    // public function candidateProfile()
-    // {
-    //     return $this->hasOne(CandidateProfile::class);
-    // }
+    // Bir kullanıcının bir aday profili olabilir.
+    public function candidateProfile(){
+        return $this -> hasOne(candidateProfile::class);
+    }
 
-    // // 📄 CV'ler
-    // public function cvs()
-    // {
-    //     return $this->hasMany(Cv::class);
-    // }
+    // Bir adayın birden fazla CV'si olabilir.
+    public function cvs(){
+        return $this -> hasMany(Cv::class, 'candidate_id');
+    }
 
-    // // 🎓 Eğitimler
-    // public function educations()
-    // {
-    //     return $this->hasMany(Education::class);
-    // }
+    // Bir aday birçok iş ilanına başurabilir.
+    public function applications(){
+        return $this -> hasMany(Application::class, 'candidate_id');
+    }
 
-    // // 💼 Deneyimler
-    // public function experiences()
-    // {
-    //     return $this->hasMany(Experience::class);
-    // }
+    // Kullanıcı birçok Bidirim alabilir.
+    public function notifications() {
+        return $this -> hasMany(Notification::class);   
+    }
 
-    // // 🛠️ Yetenekler
-    // public function skills()
-    // {
-    //     return $this->hasMany(Skill::class);
-    // }
+    //işverenin bir firması olabilir.
+    public function company(){
+        return $this ->hasOne(Company::class);
+    }
 
-    // // 🏆 Sertifikalar
-    // public function certificates()
-    // {
-    //     return $this->hasMany(Certificate::class);
-    // }
 
-    // // 📚 Kurslar
-    // public function courses()
-    // {
-    //     return $this->hasMany(Course::class);
-    // }
+    
 
-    // // 🌐 Diller
-    // public function languages()
-    // {
-    //     return $this->hasMany(Language::class);
-    // }
 
-    // // 🚀 Projeler
-    // public function projects()
-    // {
-    //     return $this->hasMany(Project::class);
-    // }
 
-    // // 👥 Referanslar
-    // public function candidateReferences()
-    // {
-    //     return $this->hasMany(CandidateReference::class);
-    // }
 
-    // // 🏢 Firmalar
-    // public function companies()
-    // {
-    //     return $this->hasMany(Company::class);
-    // }
 
-    // // 📩 Başvurular
-    // public function applications()
-    // {
-    //     return $this->hasMany(Application::class);
-    // }
 
-    // // ⭐ Favoriler
-    // public function favorites()
-    // {
-    //     return $this->hasMany(Favorite::class);
-    // }
 
-    // // ❤️ Firma takipleri
-    // public function companyFollowers()
-    // {
-    //     return $this->hasMany(CompanyFollower::class);
-    // }
 
-    // // 🔔 Bildirimler
-    // public function notifications()
-    // {
-    //     return $this->hasMany(Notification::class);
-    // }
+
+
+
+
+
 }
