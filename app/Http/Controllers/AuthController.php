@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use GuzzleHttp\Psr7\Request as Psr7Request;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -23,10 +23,10 @@ class AuthController extends Controller
     {
         //Verify the data from the form.
         $validated = $request->validate([
-            'name'     => ' required | string | max:255 ',
-            'email'    => ' required | email  | uniqe: users, email ',
-            'password' => ' required | min:6  | confirmed ',
-            'role'     => ' required | in:candidate, employer ',
+            'name'     => 'required | string | max:255',
+            'email'    => 'required | email  | uniqe: users, email',
+            'password' => 'required | min:6  | confirmed',
+            'role'     => 'required | in:candidate,employer',
         ]);
 
 
