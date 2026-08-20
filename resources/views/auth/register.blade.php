@@ -15,7 +15,7 @@
 
 
     {{-- Show validation errors --}}
-    @if (@errors->any())
+    @if ($errors->any())
     <div>
         <strong>Hatalar:</strong>
         <ul>

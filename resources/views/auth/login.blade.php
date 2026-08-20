@@ -43,7 +43,7 @@
         <div>
             <label for="password">Şifre</label>
 
-            <input type="password"="password" name="password" required>
+            <input type="password" id="password" name="password" required>
         </div> <br>
 
 
@@ -55,7 +55,7 @@
         <a href="{{ url('/register') }}"> Kayıt Ol</a>
     </p>
 
-    
+
 </body>
 
 </html>
