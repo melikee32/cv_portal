@@ -10,9 +10,22 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+
+    // Middleware ayarları
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        
+        // Kullanıcı rollerini kontrol etmek için role middleware'i
+        $middleware->alias([
+            'role' => \App\Http\Middleware\EnsureUserRole::class,
+        ]);
+
+        
     })
+
+    // Hata yönetimi
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+
+    // Laravel uygulamasını oluştur
+    ->create();
