@@ -93,4 +93,9 @@ class CandidateProfileController extends Controller
 
         return (int) round(($filled / count($trackedFields)) * 100);
     }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class, 'candidate_id');
+    }
 }

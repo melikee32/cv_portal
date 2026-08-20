@@ -2,10 +2,11 @@
 
 namespace  App\Models;
 
+use App\Models\CandidateProfile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PHPUnit\TextUI\Application;
+use App\Models\Application;
 
 class User extends Authenticatable
 {
@@ -36,7 +37,7 @@ class User extends Authenticatable
 
     // Bir kullanıcının bir aday profili olabilir.
     public function candidateProfile(){
-        return $this -> hasOne(candidateProfile::class);
+        return $this -> hasOne(CandidateProfile::class);
     }
 
     // Bir adayın birden fazla CV'si olabilir.

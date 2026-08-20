@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Education;
 
 class CandidateProfile extends Model
 {
@@ -31,5 +33,11 @@ class CandidateProfile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // 🎓 Adayın eğitim bilgileri
+    public function educations(): HasMany
+    {
+        return $this->hasMany(Education::class, 'candidate_id');
     }
 }
