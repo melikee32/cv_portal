@@ -23,10 +23,10 @@ class AuthController extends Controller
     {
         //Verify the data from the form.
         $validated = $request->validate([
-            'name'     => 'required | string | max:255',
-            'email'    => 'required | email  | uniqe: users, email',
-            'password' => 'required | min:6  | confirmed',
-            'role'     => 'required | in:candidate,employer',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email |unique:users,email',
+            'password' => 'required|min:6 |confirmed',
+            'role'     => 'required|in:candidate,employer',
         ]);
 
 
