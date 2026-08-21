@@ -59,4 +59,15 @@ class CandidateProfile extends Model
     {
         return $this->hasMany(Certificate::class, 'candidate_id');
     }
+
+    // 🎓 Adayın kursları
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class, 'candidate_id');
+    }
+
+    public function cvs()
+    {
+        return $this->hasMany(Cv::class, 'candidate_id');
+    }
 }
