@@ -21,6 +21,10 @@ class EducationController extends Controller
 
     public function store(Request $request)
     {
+        $request->merge([
+            'is_current' => $request->boolean('is_current'),
+        ]);
+
         $validated = $request->validate([
             'school_name'  => 'required|string|max:255',
             'department'   => 'nullable|string|max:255',
@@ -47,6 +51,10 @@ class EducationController extends Controller
     public function update(Request $request, Education $education)
     {
         $this->authorizeCandidate($education);
+
+        $request->merge([
+            'is_current' => $request->boolean('is_current'),
+        ]);
 
         $validated = $request->validate([
             'school_name'  => 'required|string|max:255',
