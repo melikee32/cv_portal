@@ -1,11 +1,16 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CandidateProfileController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\CertificateController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,6 +46,18 @@ Route::middleware('role:candidate')->group(function () {
     Route::resource('candidate/educations', EducationController::class)
         ->except(['show'])
         ->names('candidate.educations');
+    // 💼 Experience CRUD
+    Route::resource('candidate/experiences', ExperienceController::class)
+        ->except(['show'])
+        ->names('candidate.experiences');
+
+    Route::resource('candidate/skills', SkillController::class)
+    ->except(['show'])
+    ->names('candidate.skills');
+
+    Route::resource('candidate/certificates', CertificateController::class)
+    ->except(['show'])
+    ->names('candidate.certificates');
 });
 
 
