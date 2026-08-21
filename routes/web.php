@@ -10,6 +10,9 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CvController;
+
 
 
 Route::get('/', function () {
@@ -24,6 +27,14 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('cvs', CvController::class)->except(['edit', 'update']);
+});
+
+
+Route::get('cvs/{cv}/pdf', [CvController::class, 'downloadPdf'])->name('cvs.pdf');
 
 // Dashboard + Profil (role'e göre korumalı)
 Route::middleware('role:candidate')->group(function () {
@@ -52,13 +63,20 @@ Route::middleware('role:candidate')->group(function () {
         ->names('candidate.experiences');
 
     Route::resource('candidate/skills', SkillController::class)
-    ->except(['show'])
-    ->names('candidate.skills');
+        ->except(['show'])
+        ->names('candidate.skills');
 
     Route::resource('candidate/certificates', CertificateController::class)
-    ->except(['show'])
-    ->names('candidate.certificates');
+        ->except(['show'])
+        ->names('candidate.certificates');
+
+    // 🎓 Course CRUD
+    Route::resource('candidate/courses', CourseController::class)
+        ->except(['show'])
+        ->names('candidate.courses');
 });
+
+
 
 
 Route::middleware('role:employer')->group(function () {
